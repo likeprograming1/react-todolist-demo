@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import {List} from './List';
 import useUpdate from '../hooks/useUpdate';
+import React, { useCallback } from 'react';
+import useFetch from '../hooks/useFetch';
 const MainContainer = styled.div`
   margin: 0;
   padding: 0;
@@ -50,13 +52,13 @@ const ButtonTodo = styled.button`
   cursor: pointer;
 `
 const Listtodo = styled.section`
-  
 `
-export const Todolist = ({data}) => {
+export const Todolist = React.memo(() => {
   
   const [title, onChange] = useUpdate();
+  const [data] = useFetch("http://localhost:3000/data");
 
-  const handleSubmit =  () => {
+  const handleSubmit = useCallback(() => {
      fetch('http://localhost:3000/data', {
       method: 'POST',
       headers: {
@@ -71,7 +73,7 @@ export const Todolist = ({data}) => {
       .catch((error) => {
         console.error('실패:', error);
       });
-  }
+  },[title]);
 
   return (
     <MainContainer>
@@ -91,4 +93,4 @@ export const Todolist = ({data}) => {
       </Container>
     </MainContainer>
   );
-}
+})

@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import useFetch from "../hooks/useFetch";
 import useUpdate from "../hooks/useUpdate";
 
 const UpdateContainer = styled.div`
@@ -13,7 +12,6 @@ const UpdateContainer = styled.div`
 export const Detail = () =>{
   const [title, onChange] = useUpdate();
   const {id} = useParams();
-  const [data] = useFetch(`http://localhost:3000/data/${id}`);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
